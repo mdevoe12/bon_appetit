@@ -8,11 +8,7 @@ class Pantry
   end
 
   def stock_check(item)
-    if @stock.has_key?(item) == true
-      qty = (@stock.values_at(item)).join
-    else
-      0
-    end
+    @stock.has_key?(item) == true ? (qty = (@stock.values_at(item)).join) : (0)
     qty.to_i
   end
 
@@ -32,31 +28,22 @@ class Pantry
   def create_converted_hash(ingredients)
     converted_items = {}
     ingredients.each do |ingredient, amount|
-      converted = conversion(amount)
-      units = find_unit_type(amount)
-      converted_items.store(ingredient, {quantity: converted, units: units})
+      converted_items.store(ingredient, conversion(amount))
     end
     converted_items
   end
 
-  def find_unit_type(amount)
-    if amount > 100
-      "Centi-Units"
-    elsif amount < 1.00
-      "Milli-Units"
-    else
-      "Universal Units"
-    end
-  end
 
   def conversion(amount)
+    entry = {}
     if amount > 100
-      amount/100
+      entry = {quantity: (amount/100), units: "Centi-Units"}
     elsif amount < 1.00
-      (amount * 1000).to_i
+      entry = {quantity: ((amount * 1000).to_i), units: "Milli-Units"}
     else
-      amount
+      entry = {quantity: amount, units: "Universal Units"}
     end
+    entry
   end
 
 end

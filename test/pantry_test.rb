@@ -59,29 +59,17 @@ class PantryTest < Minitest::Test
 
   def test_if_number_converstion_works
     actual_1 = @pantry.conversion(0.025)
-    expected_1 = 25
+    expected_1 = {quantity: 25, units: "Milli-Units"}
     actual_2 = @pantry.conversion(75)
-    expected_2 = 75
+    expected_2 = {quantity: 75, units: "Universal Units"}
     actual_3 = @pantry.conversion(500)
-    expected_3 = 5
+    expected_3 = {quantity: 5, units: "Centi-Units"}
 
     assert_equal expected_1, actual_1
     assert_equal expected_2, actual_2
     assert_equal expected_3, actual_3
   end
 
-  def test_if_unit_converstion_works
-    actual_1 = @pantry.find_unit_type(0.025)
-    expected_1 = "Milli-Units"
-    actual_2 = @pantry.find_unit_type(75)
-    expected_2 = "Universal Units"
-    actual_3 = @pantry.find_unit_type(500)
-    expected_3 = "Centi-Units"
-
-    assert_equal expected_1, actual_1
-    assert_equal expected_2, actual_2
-    assert_equal expected_3, actual_3
-  end
 
   def test_if_convert_units_works
     actual = @pantry.convert_units(@r)
