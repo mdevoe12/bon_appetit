@@ -26,6 +26,7 @@ class PantryTest < Minitest::Test
     actual   = @pantry.stock_check("Cheese")
     expected = 0
 
+    assert_equal expected, actual
   end
 
 end
