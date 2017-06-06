@@ -19,7 +19,13 @@ class Pantry
   end
 
   def restock(item, quantity)
-    @stock.store(item, quantity)
+    current_count = stock_check(item)
+      if current_count == 0
+        @stock.store(item, quantity)
+      else
+        @stock.store(item, (current_count + quantity))
+      end
   end
+
 
 end
