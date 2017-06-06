@@ -70,13 +70,26 @@ class PantryTest < Minitest::Test
     assert_equal expected_3, actual_3
   end
 
-  # def test_if_convert_units_works
-  #   actual = @pantry.convert_units(@r)
-  #   expected = {"Cayenne Pepper" => {quantity: 25, units: "Milli-Units"},
-  #               "Cheese"         => {quantity: 75, units: "Universal Units"},
-  #               "Flour"          => {quantity: 5, units: "Centi-Units"}}
-  #
-  #   assert_equal expected, actual
-  # end
+  def test_if_unit_converstion_works
+    actual_1 = @pantry.find_unit_type(0.025)
+    expected_1 = "Milli-Units"
+    actual_2 = @pantry.find_unit_type(75)
+    expected_2 = "Universal Units"
+    actual_3 = @pantry.find_unit_type(500)
+    expected_3 = "Centi-Units"
+
+    assert_equal expected_1, actual_1
+    assert_equal expected_2, actual_2
+    assert_equal expected_3, actual_3
+  end
+
+  def test_if_convert_units_works
+    actual = @pantry.convert_units(@r)
+    expected = {"Cayenne Pepper" => {quantity: 25, units: "Milli-Units"},
+                "Cheese"         => {quantity: 75, units: "Universal Units"},
+                "Flour"          => {quantity: 5, units: "Centi-Units"}}
+
+    assert_equal expected, actual
+  end
 
 end

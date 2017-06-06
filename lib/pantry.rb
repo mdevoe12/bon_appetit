@@ -28,18 +28,23 @@ class Pantry
   end
 
   def convert_units(recipe)
-    find_and_convert(recipe.ingredients)
-    # conversion(recipe.ingredients) #method for actual converstion
+    ingredients = recipe.ingredients
     new_hash = {}
     ingredients.each do |ingredient, amount|
-      new_hash.store(ingredient, {quantity: amount, units: "units_used"})
+      converted = conversion(amount)
+      units = find_unit_type(amount)
+      new_hash.store(ingredient, {quantity: converted, units: units})
     end
+    new_hash
   end
 
-  def find_and_convert(ingredients)
-    binding.pry
-    ingredients.each do |ingredient, amount|
-      conversion(amount)
+  def find_unit_type(amount)
+    if amount > 100
+      "Centi-Units"
+    elsif amount < 1.00
+      "Milli-Units"
+    else
+      "Universal Units"
     end
   end
 
@@ -47,11 +52,10 @@ class Pantry
     if amount > 100
       amount/100
     elsif amount < 1.00
-      amount * 1000
+      (amount * 1000).to_i
     else
       amount
     end
   end
-
 
 end
