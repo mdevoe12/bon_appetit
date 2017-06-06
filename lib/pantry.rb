@@ -8,11 +8,18 @@ class Pantry
   end
 
   def stock_check(item)
-    # binding.pry
-    # @stock.find do |stock_item|
-    #   stock_item == item
-    0
-    # end
+    qty = 0
+    @stock.find do |stock_item|
+      if stock_item[0] == item
+        qty = @stock.values_at(item)
+        qty = qty.join
+      end
+    end
+    qty.to_i
+  end
+
+  def restock(item, quantity)
+    @stock.store(item, quantity)
   end
 
 end

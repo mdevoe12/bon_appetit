@@ -29,4 +29,12 @@ class PantryTest < Minitest::Test
     assert_equal expected, actual
   end
 
+  def test_if_restock_returns_ten
+    @pantry.restock("Cheese", 10)
+    actual = @pantry.stock_check("Cheese")
+    expected = 10
+
+    assert_equal expected, actual
+  end
+
 end
