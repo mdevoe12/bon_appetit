@@ -8,12 +8,10 @@ class Pantry
   end
 
   def stock_check(item)
-    qty = 0
-    @stock.find do |stock_item|
-      if stock_item[0] == item
-        qty = @stock.values_at(item)
-        qty = qty.join
-      end
+    if @stock.has_key?(item) == true
+      qty = (@stock.values_at(item)).join
+    else
+      0
     end
     qty.to_i
   end
