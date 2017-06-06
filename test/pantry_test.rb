@@ -3,11 +3,17 @@ require './lib/pantry'
 require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/pantry'
+require './lib/recipe'
 
 class PantryTest < Minitest::Test
 
   def setup
     @pantry = Pantry.new
+
+    @r      = Recipe.new("Spicy Cheese Pizza")
+    @r.add_ingredient("Cayenne Pepper", 0.025)
+    @r.add_ingredient("Cheese", 75)
+    @r.add_ingredient("Flour", 500)
   end
 
   def test_it_creates_class
@@ -45,5 +51,32 @@ class PantryTest < Minitest::Test
 
     assert_equal expected, actual
   end
+
+  def test_if_spicycheesepizza_creates
+
+    assert_instance_of Recipe, @r
+  end
+
+  def test_if_number_converstion_works
+    actual_1 = @pantry.conversion(0.025)
+    expected_1 = 25
+    actual_2 = @pantry.conversion(75)
+    expected_2 = 75
+    actual_3 = @pantry.conversion(500)
+    expected_3 = 5
+
+    assert_equal expected_1, actual_1
+    assert_equal expected_2, actual_2
+    assert_equal expected_3, actual_3
+  end
+
+  # def test_if_convert_units_works
+  #   actual = @pantry.convert_units(@r)
+  #   expected = {"Cayenne Pepper" => {quantity: 25, units: "Milli-Units"},
+  #               "Cheese"         => {quantity: 75, units: "Universal Units"},
+  #               "Flour"          => {quantity: 5, units: "Centi-Units"}}
+  #
+  #   assert_equal expected, actual
+  # end
 
 end
