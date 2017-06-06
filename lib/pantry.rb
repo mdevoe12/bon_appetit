@@ -19,23 +19,26 @@ class Pantry
   end
 
   def restock(item, quantity)
-    current_count = stock_check(item)
-      if current_count == 0
+      if stock_check(item) == 0
         @stock.store(item, quantity)
       else
-        @stock.store(item, (current_count + quantity))
+        @stock.store(item, ((stock_check(item)) + quantity))
       end
   end
 
   def convert_units(recipe)
     ingredients = recipe.ingredients
-    new_hash = {}
+    create_converted_hash(ingredients)
+  end
+
+  def create_converted_hash(ingredients)
+    converted_items = {}
     ingredients.each do |ingredient, amount|
       converted = conversion(amount)
       units = find_unit_type(amount)
-      new_hash.store(ingredient, {quantity: converted, units: units})
+      converted_items.store(ingredient, {quantity: converted, units: units})
     end
-    new_hash
+    converted_items
   end
 
   def find_unit_type(amount)
